@@ -18,9 +18,8 @@ class CreateUserSkills extends Migration
         else 
         Schema::create('user_skills', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('uid')->nullable();
+            $table->string('email');
             $table->unsignedInteger('sid')->nullable();
-            $table->foreign('uid')->references('id')->on('users');
             $table->foreign('sid')->references('sid')->on('skills');
             $table->string('proficiency', 50);
             $table->string('files', 80);
