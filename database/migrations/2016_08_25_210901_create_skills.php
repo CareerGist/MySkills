@@ -20,7 +20,7 @@ class CreateSkills extends Migration
             $table->increments('sid');
             $table->string('category', 80);
             $table->string('skill', 100);
-            $table->string('description', 170);
+            $table->string('description', 170)->nullable();
             $table->timestamps();
 
         });
