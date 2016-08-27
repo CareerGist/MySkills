@@ -1,79 +1,97 @@
-<?php
+@extends('layouts.master')
 
-namespace Illuminate\Foundation\Auth;
-use DB;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+@section('content')
+    <div class="main-container">
 
-trait RegistersUsers
-{
-    use RedirectsUsers;
+        @include('layouts.partials.alerts')
 
-    /**
-     * Show the application registration form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getRegister()
-    {
-        return $this->showRegistrationForm();
-    }
+        <div class="page-header">
+            <h3>Sign Up</h3>
+        </div>
 
-    /**
-     * Show the application registration form.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function showRegistrationForm()
-    {
+         <form role="form" method="POST" action="{{ route('auth.register') }}" class="form-horizontal" _lpchecked="1">
+            {!! csrf_field() !!}
+            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                <label for="name" class="col-sm-2 control-label">Name</label>
+                <div class="col-sm-8">
+                    <input type="text" name="name" id="name" autofocus="" class="form-control">
+                    @if ($errors->has('name'))
+                        <span class="help-block">{{ $errors->first('name') }}</span>
+                    @endif
+                </div>
 
-        if (property_exists($this, 'registerView')) {
-            return view($this->registerView);
-        }
-        $category = DB::table('skills')->groupBy('category')->get();
+            </div>
+            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                <label for="email" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-8">
+                    <input type="text" name="email" id="email" class="form-control">
+                    @if ($errors->has('email'))
+                        <span class="help-block">{{ $errors->first('email') }}</span>
+                    @endif
+                </div>
+            </div>
+            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                <label for="password" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-8">
+                    <input type="password" name="password" id="password" class="form-control">
+                    @if ($errors->has('password'))
+                        <span class="help-block">{{ $errors->first('password') }}</span>
+                    @endif
+                </div>
+            </div>
 
-        return view('auth.register',  ['category' => $category]);
-    }
 
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function postRegister(Request $request)
-    {
-        return $this->register($request);
-    }
+            <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+              <label for="category" class="col-sm-2 control-label">Category</label>
+              <div class="col-sm-8">
+              <select class="form-control" id="category" name="category">
+                @foreach($category as $item)
+                  <option value="{{$item->category}}">{{$item->category}}</option>
+                @endforeach
+              </select>
+              @if ($errors->has('Category'))
+                        <span class="help-block">{{ $errors->first('Category') }}</span>
+                    @endif
+              </div>
+            </div>
 
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function register(Request $request)
-    {
-        $validator = $this->validator($request->all());
 
-        if ($validator->fails()) {
-            $this->throwValidationException(
-                $request, $validator
-            );
-        }
+               <div class="form-group{{ $errors->has('skill') ? ' has-error' : '' }}">
+              <label for="skill" class="col-sm-2 control-label">Skill</label>
+              <div class="col-sm-8">
+              <select name="skill" id="skill" class="form-control">    
+               
+              </select>
+               @if ($errors->has('skill'))
+                        <span class="help-block">{{ $errors->first('skill') }}</span>
+                    @endif 
+              </div>
+            </div>
 
-        Auth::guard($this->getGuard())->login($this->create($request->all()));
 
-        return redirect($this->redirectPath());
-    }
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-8">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-user-plus"></i> Signup</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
-    /**
-     * Get the guard to be used during registration.
-     *
-     * @return string|null
-     */
-    protected function getGuard()
-    {
-        return property_exists($this, 'guard') ? $this->guard : null;
-    }
-}
+
+     <script type="text/javascript">
+       $(document).ready(function($){
+                     $('#category').change(function(){
+                       $.get("{{ url('/dropdown')}}", 
+                       { option: $(this).val() },
+                             function(data) {
+                                $('#skill').empty(); 
+                                    $.each(data, function(key, element) {
+                      $('#skill').append("<option value='" + element.sid +"'>" + element.skill + "</option>");
+                    });
+                });
+           });
+            
+         });
+            
+    </script>
+@stop
