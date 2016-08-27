@@ -45,6 +45,7 @@
               <label for="category" class="col-sm-2 control-label">Category</label>
               <div class="col-sm-8">
               <select class="form-control" id="category" name="category">
+              <option value="">Please select a category</option>
                 @foreach($category as $item)
                   <option value="{{$item->category}}">{{$item->category}}</option>
                 @endforeach
@@ -60,7 +61,7 @@
               <label for="skill" class="col-sm-2 control-label">Skill</label>
               <div class="col-sm-8">
               <select name="skill" id="skill" class="form-control">    
-               
+               <option>Please choose a category first</option>
               </select>
                @if ($errors->has('skill'))
                         <span class="help-block">{{ $errors->first('skill') }}</span>
