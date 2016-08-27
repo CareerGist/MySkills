@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\UserSkill;
+use App\Skill;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -67,7 +69,7 @@ class AuthController extends Controller
     protected function create(array $data)
     {      
            UserSkill::create([
-            'sid' => $data['category'],
+            'sid' => $data['skill'],
             'email' => $data['email']
                ]);
 
@@ -78,10 +80,13 @@ class AuthController extends Controller
 
             ]);
             
-       
-        
-
-            
     }
 
+    public function showSkills(Request $request)
+    {
+             $input = $request->input('option');
+             $skill = Skill::where('category', $input);
+             return $skill->get(['sid','skill']);
+    }
+   
 }
