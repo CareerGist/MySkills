@@ -1,0 +1,25 @@
+.navbar-primary .navbar-form .form-control {
+  background: #ffffff;
+  border-color: #16ae9f;
+  color: #000000;
+}
+.navbar-primary .navbar-form .form-control::-moz-placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.navbar-primary .navbar-form .form-control:-ms-input-placeholder {
+  color: #000000;
+}
+.navbar-primary .navbar-form .form-control::-webkit-input-placeholder {
+  color: #000000;
+}
+.navbar-primary .btn-default {
+  color: #ffffff;
+  background-color: #16ae9f;
+  border-color: #16ae9f;
+  height: 32px;
+}
+.show-sidebar.sidebar-l2 #content {
+    margin-left: 0;
+    margin-right: 200px;
+  }
