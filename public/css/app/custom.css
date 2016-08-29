@@ -3,6 +3,16 @@
   border-color: #16ae9f;
   color: #000000;
 }
+@media (min-width: 768px) {
+  .navbar-primary .navbar-form .form-control {
+    width: 300px;
+  }
+}
+@media (min-width: 992px) {
+  .navbar-primary .navbar-form .form-control {
+    width: 450px;
+  }
+}
 .navbar-primary .navbar-form .form-control::-moz-placeholder {
   color: #000000;
   opacity: 1;
