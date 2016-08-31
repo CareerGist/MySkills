@@ -3,9 +3,9 @@
   border-color: #16ae9f;
   color: #000000;
 }
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width: 991px) {
   .navbar-primary .navbar-form .form-control {
-    width: 300px;
+    width: 250px;
   }
 }
 @media (min-width: 992px) {
@@ -33,3 +33,7 @@
     margin-left: 0;
     margin-right: 200px;
   }
+.nv{
+  padding-left: 12px;
+  padding-right: 10px;
+}
